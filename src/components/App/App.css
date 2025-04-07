@@ -1,0 +1,16 @@
+@import "../../vendor/fonts.css";
+
+.page {
+  background-color: #f3f3f3;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  min-height: 100vh; /* This ensures the page takes up full viewport height */
+  /* margin: 0; Removes any default margins */
+  display: flex; /* Using flex to ensure content fills the space */
+  flex-direction: column;
+}
+
+.page__content {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 20px;
+}

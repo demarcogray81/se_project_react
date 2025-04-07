@@ -1,0 +1,150 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000004d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+.modal__opened {
+  visibility: visible;
+}
+
+.modal__text {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.modal__title {
+  margin: 0 0 24px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  cursor: pointer;
+  background-image: url(../../assets/cross.png);
+  background-color: transparent;
+  width: 16px;
+  height: 16px;
+  border: none;
+}
+
+/* .modal__content {
+  background-color: #fff;
+  position: relative;
+  padding: 0 0 32px;
+  max-width: 498px;
+  min-height: 610px;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  overflow: hidden;
+} */
+
+.modal__content {
+  background-color: white;
+  max-width: 496px;
+  width: 100%;
+  border-radius: 20px;
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.modal__content_type_form {
+  padding: 28px 28px 32px;
+}
+
+.modal__content_type_image {
+  padding: 0;
+}
+
+.modal__image {
+  width: 498px;
+  height: 498px;
+  object-fit: cover;
+  margin: 0;
+  display: block;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.modal__footer {
+  padding: 0 32px 0;
+}
+
+.modal__weather {
+  margin: 0 0 32px;
+}
+
+.modal__input {
+  padding: 0;
+  font-size: 16px;
+  line-height: 20px;
+  width: 100%;
+  display: block;
+  border: none;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  text-align: left;
+}
+
+.modal__legend {
+  margin-bottom: 12px;
+}
+
+.modal__radio {
+  margin-bottom: 8px;
+}
+
+.modal__radio-btns {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+}
+
+.modal__label_type_radio {
+  opacity: 0.5;
+}
+
+.modal__label_type_radio:has(input[type="radio"]:checked) {
+  opacity: 1;
+}
+
+.modal__save {
+  font-size: 16px;
+  padding: 8px 16px;
+  max-width: 124px;
+  margin-top: 32px;
+  display: flex;
+  height: 36px;
+  background-color: #000000;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__save:hover {
+  opacity: 0.6;
+}

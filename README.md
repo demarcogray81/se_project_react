@@ -50,7 +50,9 @@ The project follows a component-based architecture with:
 
 ## Screenshots
 
-[You can add screenshots of your application here]
+![What to Wear - Google Chrome 4_7_2025 5_42_54 PM](https://github.com/user-attachments/assets/06ccb0dd-6b96-4bb9-89df-3957671f3196)
+![What to Wear - Google Chrome 4_7_2025 5_43_14 PM](https://github.com/user-attachments/assets/6098f323-267d-47ab-9982-5f993d6e9187)
+![What to Wear - Google Chrome 4_7_2025 5_43_27 PM](https://github.com/user-attachments/assets/8a769733-c368-455c-8965-f5640fcb7977)
 
 ## Getting Started
 

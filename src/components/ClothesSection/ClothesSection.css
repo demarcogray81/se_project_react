@@ -1,0 +1,35 @@
+.clothes__section {
+  flex-grow: 1;
+}
+
+.clothes__section-items {
+  display: grid;
+  flex-wrap: wrap;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0;
+}
+
+.cards__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.clothes__section-add {
+  display: flex;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.clothes__section-add-btn {
+  background-color: transparent;
+  border: none;
+  color: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}

@@ -22,7 +22,7 @@
 }
 
 .modal__title {
-  margin: 0 0 24px;
+  margin: 0 0 40px;
 }
 
 .modal__close {
@@ -36,19 +36,6 @@
   height: 16px;
   border: none;
 }
-
-/* .modal__content {
-  background-color: #fff;
-  position: relative;
-  padding: 0 0 32px;
-  max-width: 498px;
-  min-height: 610px;
-  box-sizing: border-box;
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
-  overflow: hidden;
-} */
 
 .modal__content {
   background-color: white;
@@ -72,7 +59,6 @@
 .modal__image {
   width: 498px;
   height: 498px;
-  object-fit: cover;
   margin: 0;
   display: block;
 }
@@ -84,11 +70,28 @@
 }
 
 .modal__footer {
-  padding: 0 32px 0;
+  margin-top: 20px;
+  padding: 0 32px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .modal__weather {
-  margin: 0 0 32px;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.modal__save:hover {
+  opacity: 0.6;
+}
+
+.modal__save:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 1);
+  cursor: not-allowed;
 }
 
 .modal__input {
@@ -143,8 +146,4 @@
   text-overflow: ellipsis;
   align-items: center;
   justify-content: center;
-}
-
-.modal__save:hover {
-  opacity: 0.6;
 }

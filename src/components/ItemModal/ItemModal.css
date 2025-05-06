@@ -1,0 +1,124 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.modal_opened {
+  display: flex;
+}
+
+.modal__content {
+  position: relative;
+  background-color: white;
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
+.modal__delete-button {
+  background: none;
+  border: none;
+  color: #ff3b3b;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.modal__caption {
+  margin: 0 0 12px;
+}
+
+.modal__weather {
+  margin: 20px 0 0;
+}
+
+.modal__content_closed {
+  visibility: hidden;
+}
+
+.modal__confirmation_text {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.modal__buttons {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  width: 140px;
+  white-space: nowrap;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.modal__confirmation-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-image: url(../../assets/cross.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  width: 16px;
+  height: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal__confirmation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__confirmation {
+  position: relative; /* Required for positioning the X inside */
+  width: 670px;
+  height: 280px;
+  background-color: white;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal__confirmation button {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal__confirmation button:first-of-type {
+  background-color: transparent;
+  color: rgba(255, 77, 0, 1);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  margin: 0 0 20px;
+}
+
+.modal__confirmation button:last-of-type {
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}

@@ -1,5 +1,7 @@
 # WTWR (What to Wear?)
 
+- Link to Backend(Express): https://github.com/demarcogray81/se_project_express
+
 ## About the Project
 
 This is a React application that helps users decide what to wear based on the weather. The app connects to a weather API to fetch current weather data and suggests suitable clothing items for the current weather conditions.

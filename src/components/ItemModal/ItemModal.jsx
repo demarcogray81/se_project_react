@@ -1,74 +1,33 @@
-import "./ItemModal.css";
-import { useState } from "react";
+export default function ItemModal({ isOpen, card, onClose, onDelete }) {
+  if (!isOpen || !card) return null;
 
-function ItemModal({ isOpen, onClose, card, onDelete }) {
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-
-  const handleDeleteClick = () => {
-    setIsConfirmationOpen(true);
-    console.log("Delete button clicked");
-  };
-
-  const handleConfirmDelete = () => {
-    onDelete(card._id);
-    setIsConfirmationOpen(false);
-    onClose();
-  };
+  const currentUser = React.useContext(CurrentUserContext);
+  const isOwn = card.owner === currentUser._id;
+  const deleteBtnClass = `modal__delete-button ${
+    isOwn ? "" : "modal__delete-button_hidden"
+  }`;
 
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
-      <div
-        className={`modal__content modal__content_type_image ${
-          isConfirmationOpen ? "modal__content_closed" : ""
-        }`}
-      >
-        <button onClick={onClose} type="button" className="modal__close" />
-        <img
-          src={card.link}
-          alt={`${card.name} item`}
-          className="modal__image"
-        />
+      <div className="modal__content modal__content_type_image">
+        <button onClick={onClose} className="modal__close" />
+        <img src={card.link} alt={card.name} className="modal__image" />
         <div className="modal__footer">
           <div className="modal__info">
-            {card.name && <h2 className="modal__caption">{card.name}</h2>}
-            <p className="modal__weather">Weather: {card.weather}</p>
+            <h2 className="modal__caption">{card.name}</h2>
+            <p className="modal__weather">{card.weather}</p>
           </div>
           <button
-            className={`modal__delete-button ${
-              !card.name ? "modal__delete-button--align-weather" : ""
-            }`}
-            onClick={handleDeleteClick}
+            className={deleteBtnClass}
+            onClick={() => {
+              onDelete(card._id);
+              onClose();
+            }}
           >
-            Delete item
+            Delete
           </button>
         </div>
       </div>
-
-      {isConfirmationOpen && (
-        <div className="modal__confirmation-overlay">
-          <div className="modal__confirmation">
-            <button
-              onClick={() => setIsConfirmationOpen(false)}
-              type="button"
-              className="modal__confirmation-close"
-              aria-label="Close confirmation modal"
-            />
-            <p className="modal__title modal__confirmation_text">
-              Are you sure you want to delete this item?
-              <br />
-              This action is irreversible.
-            </p>
-            <div className="modal__buttons">
-              <button onClick={handleConfirmDelete}>Yes, delete item</button>
-              <button onClick={() => setIsConfirmationOpen(false)}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
-
-export default ItemModal;

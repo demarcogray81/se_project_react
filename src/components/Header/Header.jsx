@@ -1,40 +1,83 @@
-import "./Header.css";
-import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.png";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import logo from "../../assets/logo.svg";
+import "./Header.css";
 
-function Header({ handleAddClick, weatherData }) {
+function Header({ handleAddClick, weatherData, onSignInClick, onSignUpClick }) {
+  const currentUser = useContext(CurrentUserContext);
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+  const initial = currentUser?.name?.charAt(0).toUpperCase() || "?";
 
   return (
     <header className="header">
-      <Link to="/">
-        {" "}
-        <img className="header__logo" alt="wttr logo" src={logo} />
+      <Link to="/" className="header__logo-link">
+        <img src={logo} alt="WTWR logo" className="header__logo" />
       </Link>
+
       <p className="header__info">
         {currentDate}, {weatherData.city}
-      </p>{" "}
+      </p>
+
       <ToggleSwitch />
+
       <button
         onClick={handleAddClick}
-        type="button"
         className="header__add-clothes-btn"
+        type="button"
       >
-        + Add Clothes
-      </button>{" "}
-      <Link to="/profile" className="header__link">
-        <div className="header__user-container">
-          <p className="header__username">Terrence Tegegne</p>
-          <img src={avatar} alt="Terrence Tegegne" className="header__avatar" />
+        + Add Clothes
+      </button>
+
+      {!currentUser ? (
+        <div className="header__auth-buttons">
+          <button
+            className="header__auth-btn"
+            onClick={onSignUpClick}
+            type="button"
+          >
+            Sign Up
+          </button>
+          <button
+            className="header__auth-btn"
+            onClick={onSignInClick}
+            type="button"
+          >
+            Log In
+          </button>
         </div>
-      </Link>
+      ) : (
+        <Link to="/profile" className="header__link">
+          <div className="header__profile">
+            {currentUser.avatar ? (
+              <img
+                src={currentUser.avatar}
+                alt={currentUser.name}
+                className="header__avatar"
+              />
+            ) : (
+              <div className="header__avatar-placeholder">{initial}</div>
+            )}
+            <span className="header__name">{currentUser.name}</span>
+          </div>
+        </Link>
+      )}
     </header>
   );
 }
 
-export default Header;
+Header.propTypes = {
+  handleAddClick: PropTypes.func.isRequired,
+  weatherData: PropTypes.shape({
+    city: PropTypes.string.isRequired,
+  }).isRequired,
+  onSignInClick: PropTypes.func.isRequired,
+  onSignUpClick: PropTypes.func.isRequired,
+};
+
+export default React.memo(Header);

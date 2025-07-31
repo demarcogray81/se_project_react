@@ -1,21 +1,46 @@
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./ItemCard.css";
 
-function ItemCard({ item, onCardClick }) {
-  const handleCardClick = () => {
-    onCardClick(item);
-  };
+export default function ItemCard({ item, onCardClick, onCardLike }) {
+  const currentUser = useContext(CurrentUserContext);
+  const isOwn = item.owner === currentUser._id;
+  const isLiked = item.likes.includes(currentUser._id);
 
   return (
-    <li className="card">
-      <h2 className="card__name">{item.name}</h2>
+    <div className="item-card">
       <img
-        onClick={handleCardClick}
-        className="card__image"
         src={item.link}
         alt={item.name}
+        className="item-card__image"
+        onClick={() => onCardClick(item)}
       />
-    </li>
+
+      <div className="item-card__footer">
+        <h4 className="item-card__title">{item.name}</h4>
+        <button
+          className={`item-card__like ${
+            isLiked ? "item-card__like_active" : ""
+          }`}
+          onClick={() => onCardLike(item)}
+          aria-label={isLiked ? "Unlike" : "Like"}
+        >
+          ❤️ {item.likes.length}
+        </button>
+      </div>
+    </div>
   );
 }
 
-export default ItemCard;
+ItemCard.propTypes = {
+  item: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    link: PropTypes.string,
+    owner: PropTypes.string.isRequired,
+    likes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  onCardLike: PropTypes.func.isRequired,
+};

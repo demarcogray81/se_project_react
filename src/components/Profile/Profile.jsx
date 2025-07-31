@@ -1,22 +1,57 @@
-import ClothesSection from "../ClothesSection/ClothesSection";
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import SideBar from "../SideBar/SideBar";
+import ClothesSection from "../ClothesSection/ClothesSection";
 import "./Profile.css";
 
-function Profile({ onCardClick, clothingItems, handleAddClick }) {
+export default function Profile({
+  onCardClick,
+  onCardLike,
+  onSignOut,
+  handleAddClick,
+  onEditProfile,
+  clothingItems,
+}) {
+  const user = useContext(CurrentUserContext);
   return (
     <div className="profile">
-      <section className="profile__sidebar">
-        <SideBar />
-      </section>
-      <section className="profile__clothing-items">
+      <aside className="profile__sidebar">
+        <img src={user.avatar} alt={user.name} className="profile__avatar" />
+        <h2 className="profile__name">{user.name}</h2>
+        <button onClick={onEditProfile} className="profile__btn">
+          Edit Profile
+        </button>
+        <button
+          onClick={onSignOut}
+          className="profile__btn profile__btn_signout"
+        >
+          Sign Out
+        </button>
+      </aside>
+
+      <main className="profile__main">
+        <div className="profile__header">
+          <h3>Your Items</h3>
+          <button onClick={handleAddClick} className="profile__btn">
+            + Add New
+          </button>
+        </div>
         <ClothesSection
           onCardClick={onCardClick}
+          onCardLike={onCardLike}
           clothingItems={clothingItems}
-          handleAddClick={handleAddClick}
         />
-      </section>
+      </main>
     </div>
   );
 }
 
-export default Profile;
+Profile.propTypes = {
+  onCardClick: PropTypes.func.isRequired,
+  onCardLike: PropTypes.func.isRequired,
+  onSignOut: PropTypes.func.isRequired,
+  handleAddClick: PropTypes.func.isRequired,
+  onEditProfile: PropTypes.func.isRequired,
+  clothingItems: PropTypes.array.isRequired,
+};

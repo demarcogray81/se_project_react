@@ -1,8 +1,14 @@
 .header {
   display: flex;
   align-items: center;
-  padding: 0 0 28px;
+  padding: 16px 32px;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-weight: 700;
+  gap: 16px;
+}
+
+.header__logo-link {
+  margin-right: 24px;
 }
 
 .header__logo {
@@ -10,7 +16,9 @@
 }
 
 .header__info {
+  font-size: 20px;
   margin: 0;
+  margin-right: auto;
 }
 
 .header__link {
@@ -34,4 +42,47 @@
 
 .header__username {
   margin: 0;
+}
+
+.header__auth-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.header__auth-btn {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.header__profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.header__avatar-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #555;
+}
+
+.header__name {
+  font-size: 20px;
+  color: inherit;
 }

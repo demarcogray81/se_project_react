@@ -16,7 +16,6 @@ export default function RegisterModal({
   });
   const [isValid, setIsValid] = useState(false);
 
-  // Re-validate whenever any field changes
   useEffect(() => {
     const { name, avatar, email, password } = formData;
     setIsValid(

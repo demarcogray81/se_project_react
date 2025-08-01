@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-import SideBar from "../SideBar/SideBar";
-import ClothesSection from "../ClothesSection/ClothesSection";
-import "./Profile.css";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+import SideBar from "./SideBar";
+import ClothesSection from "./ClothesSection";
+import "../styles/Profile.css";
 
 export default function Profile({
   onCardClick,

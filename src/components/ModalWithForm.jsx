@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./ModalWithForm.css";
+import "../styles/ModalWithForm.css";
 
 function ModalWithForm({
   title,

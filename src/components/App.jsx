@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import { signin, signup, checkToken, getToken } from "../../utils/auth";
-import { getWeather, filterWeatherData } from "../../utils/weatherApi";
+import { signin, signup, checkToken, getToken } from "../utils/auth";
+import { getWeather, filterWeatherData } from "../utils/weatherApi";
 import {
   getItems,
   addItem,
@@ -10,24 +10,22 @@ import {
   updateUser,
   addCardLike,
   removeCardLike,
-} from "../../utils/api";
-import { coordinates, APIkey } from "../../utils/constants";
+} from "../utils/api";
+import { coordinates, APIkey } from "../utils/constants";
 
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
 
-import Header from "../Header/Header";
-import Main from "../Main/Main";
-import Profile from "../Profile/Profile";
-import Footer from "../Footer/Footer";
-import AddItemModal from "../AddItemModal/AddItemModal";
-import ItemModal from "../ItemModal/ItemModal";
-import LoginModal from "../LoginModal/LoginModal";
-import RegisterModal from "../RegisterModal/RegisterModal";
-import EditProfileModal from "../EditProfileModal/EditProfileModal";
-import PrivateRoute from "../PrivateRoute/PrivateRoute";
-
-import "./App.css";
+import Header from "./Header";
+import Main from "./Main";
+import Profile from "./Profile";
+import Footer from "./Footer";
+import AddItemModal from "./AddItemModal";
+import ItemModal from "./ItemModal";
+import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
+import EditProfileModal from "./EditProfileModal";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   const [weatherData, setWeatherData] = useState({

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-import "./ItemCard.css";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+import "../styles/ItemCard.css";
 
 export default function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);

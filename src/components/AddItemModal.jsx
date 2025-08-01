@@ -1,5 +1,5 @@
-import "./AddItemModal.css";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "../styles/AddItemModal.css";
+import ModalWithForm from "./ModalWithForm";
 import { useState } from "react";
 
 export default function AddItemModal({

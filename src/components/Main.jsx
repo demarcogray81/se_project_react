@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import "./Main.css";
-import WeatherCard from "../WeatherCard/WeatherCard";
-import ItemCard from "../ItemCard/ItemCard";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import "../styles/Main.css";
+import WeatherCard from "./WeatherCard";
+import ItemCard from "./ItemCard";
+import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 import PropTypes from "prop-types";
+import "../vendor/fonts.css";
+import "../styles/App.css";
 
 export default function Main({
   weatherData,

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import logo from "../../assets/logo.svg";
-import "./Header.css";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+import ToggleSwitch from "./ToggleSwitch";
+import logo from "../assets/logo.svg";
+import "../styles/Header.css";
 
 function Header({ handleAddClick, weatherData, onSignInClick, onSignUpClick }) {
   const currentUser = useContext(CurrentUserContext);

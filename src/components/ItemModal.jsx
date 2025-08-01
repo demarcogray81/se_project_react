@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import ModalWithForm from "./ModalWithForm";
+import "../styles/ItemModal.css";
 
 export default function ItemModal({ isOpen, card, onClose, onDelete }) {
   if (!isOpen || !card) return null;

@@ -1,83 +1,54 @@
 import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import ModalWithForm from "./ModalWithForm";
 
-export default function RegisterModal({
+export default function LoginModal({
   isOpen,
   onClose,
-  onRegister,
-  onSwitchToLogin,
+  onLogin,
+  onSwitchToRegister,
 }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    avatar: "",
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [isValid, setIsValid] = useState(false);
 
+  // validate
   useEffect(() => {
-    const { name, avatar, email, password } = formData;
     setIsValid(
-      name.trim() && avatar.trim() && email.trim() && password.length >= 8
+      formData.email.trim().length > 0 && formData.password.length >= 8
     );
   }, [formData]);
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData((fd) => ({ ...fd, [name]: value }));
+    setFormData((d) => ({ ...d, [name]: value }));
   }, []);
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      onRegister(formData);
+      onLogin(formData);
     },
-    [formData, onRegister]
+    [formData, onLogin]
   );
 
   if (!isOpen) return null;
 
   return (
     <ModalWithForm
-      title="Sign Up"
-      buttonText="Sign Up"
+      title="Log In"
+      buttonText="Sign In"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
       isSubmitDisabled={!isValid}
       altActionLabel="or"
-      altActionLinkText="Log In"
+      altActionLinkText="Sign Up"
       onAltAction={() => {
         onClose();
         onSwitchToRegister();
       }}
     >
-      <p>Name*</p>
-      <input
-        name="name"
-        type="text"
-        placeholder="Name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-        minLength={2}
-        maxLength={30}
-        className="modal__input"
-      />
-
-      <p>Avatar URL*</p>
-      <input
-        name="avatar"
-        type="url"
-        placeholder="Avatar URL"
-        value={formData.avatar}
-        onChange={handleChange}
-        required
-        className="modal__input"
-      />
-
-      <p>Email*</p>
+      <p>Email</p>
       <input
         name="email"
         type="email"
@@ -88,7 +59,7 @@ export default function RegisterModal({
         className="modal__input"
       />
 
-      <p>Password*</p>
+      <p>Password</p>
       <input
         name="password"
         type="password"
@@ -103,9 +74,9 @@ export default function RegisterModal({
   );
 }
 
-RegisterModal.propTypes = {
+LoginModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onRegister: PropTypes.func.isRequired,
-  onSwitchToLogin: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  onSwitchToRegister: PropTypes.func.isRequired,
 };

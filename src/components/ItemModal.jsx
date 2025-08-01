@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import ModalWithForm from "./ModalWithForm";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+
 import "../styles/ItemModal.css";
 
 export default function ItemModal({ isOpen, card, onClose, onDelete }) {
+  const currentUser = React.useContext(CurrentUserContext);
   if (!isOpen || !card) return null;
 
-  const currentUser = React.useContext(CurrentUserContext);
   const isOwn = card.owner === currentUser._id;
   const deleteBtnClass = `modal__delete-button ${
     isOwn ? "" : "modal__delete-button_hidden"

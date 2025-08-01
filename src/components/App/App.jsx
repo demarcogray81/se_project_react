@@ -3,7 +3,14 @@ import { Routes, Route } from "react-router-dom";
 
 import { signin, signup, checkToken, getToken } from "../../utils/auth";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { getItems, addItem, deleteItem, updateUser } from "../../utils/api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  updateUser,
+  addCardLike,
+  removeCardLike,
+} from "../../utils/api";
 import { coordinates, APIkey } from "../../utils/constants";
 
 import CurrentUserContext from "../../contexts/CurrentUserContext";

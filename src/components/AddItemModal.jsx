@@ -18,7 +18,7 @@ export default function AddItemModal({
   const handleImageChange = (e) => {
     setImageUrl(e.target.value);
   };
-  const handleweatherChange = (e) => {
+  const handleWeatherChange = (e) => {
     setWeather(e.target.value);
   };
 
@@ -75,7 +75,7 @@ export default function AddItemModal({
             type="radio"
             className="modal__radio"
             value="hot"
-            onChange={handleweatherChange}
+            onChange={handleWeatherChange}
             checked={weather === "hot"}
           />{" "}
           Hot
@@ -88,7 +88,7 @@ export default function AddItemModal({
             type="radio"
             className="modal__radio"
             value="warm"
-            onChange={handleweatherChange}
+            onChange={handleWeatherChange}
             checked={weather === "warm"}
           />{" "}
           Warm
@@ -101,7 +101,7 @@ export default function AddItemModal({
             type="radio"
             className="modal__radio"
             value="cold"
-            onChange={handleweatherChange}
+            onChange={handleWeatherChange}
             checked={weather === "cold"}
           />{" "}
           Cold

@@ -5,8 +5,8 @@ import "../styles/ItemCard.css";
 
 export default function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
-  const isOwn = item.owner === currentUser._id;
-  const isLiked = item.likes.includes(currentUser._id);
+  const isOwn = currentUser && item.owner === currentUser._id;
+  const isLiked = currentUser && item.likes.includes(currentUser._id);
 
   return (
     <div className="item-card">

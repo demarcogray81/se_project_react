@@ -39,33 +39,35 @@ export default function EditProfileModal({ isOpen, onClose, onUpdate }) {
 
   if (!isOpen) return null;
 
-  <ModalWithForm
-    title="Edit profile"
-    buttonText="Save"
-    isOpen={isOpen}
-    onClose={onClose}
-    onSubmit={handleUpdate}
-    isSubmitDisabled={!isValid}
-  >
-    <input
-      name="name"
-      type="text"
-      placeholder="Name"
-      value={formData.name}
-      onChange={handleChange}
-      required
-      minLength={2}
-      maxLength={30}
-    />
-    <input
-      name="avatar"
-      type="url"
-      placeholder="Avatar URL"
-      value={formData.avatar}
-      onChange={handleChange}
-      required
-    />
-  </ModalWithForm>;
+  return (
+    <ModalWithForm
+      title="Edit profile"
+      buttonText="Save"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      isSubmitDisabled={!isValid}
+    >
+      <input
+        name="name"
+        type="text"
+        placeholder="Name"
+        value={formData.name}
+        onChange={handleChange}
+        required
+        minLength={2}
+        maxLength={30}
+      />
+      <input
+        name="avatar"
+        type="url"
+        placeholder="Avatar URL"
+        value={formData.avatar}
+        onChange={handleChange}
+        required
+      />
+    </ModalWithForm>
+  );
 }
 
 EditProfileModal.propTypes = {

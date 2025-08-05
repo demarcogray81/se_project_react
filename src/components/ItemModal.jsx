@@ -8,7 +8,7 @@ export default function ItemModal({ isOpen, card, onClose, onDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
   if (!isOpen || !card) return null;
 
-  const isOwn = card.owner === currentUser._id;
+  const isOwn = currentUser && card.owner === currentUser._id;
   const deleteBtnClass = `modal__delete-button ${
     isOwn ? "" : "modal__delete-button_hidden"
   }`;

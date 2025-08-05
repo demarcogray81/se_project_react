@@ -1,12 +1,9 @@
-// Base URL for your API; Vite's env variables must start with VITE_
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 
-// Get JWT from localStorage
 export function getToken() {
   return localStorage.getItem("jwt");
 }
 
-// Register a new user
 export async function signup({ name, avatar, email, password }) {
   const res = await fetch(`${BASE_URL}/signup`, {
     method: "POST",
@@ -20,7 +17,6 @@ export async function signup({ name, avatar, email, password }) {
   return res.json();
 }
 
-// Log in existing user
 export async function signin({ email, password }) {
   const res = await fetch(`${BASE_URL}/signin`, {
     method: "POST",
@@ -32,7 +28,6 @@ export async function signin({ email, password }) {
   return data.token;
 }
 
-// Verify token and get current user
 export async function checkToken(token) {
   const res = await fetch(`${BASE_URL}/users/me`, {
     headers: {

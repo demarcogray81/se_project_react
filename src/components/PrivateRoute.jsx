@@ -11,4 +11,4 @@ PrivateRoute.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default React.memo(PrivateRoute);
+export default PrivateRoute;

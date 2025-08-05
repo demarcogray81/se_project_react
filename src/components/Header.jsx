@@ -80,4 +80,4 @@ Header.propTypes = {
   onSignUpClick: PropTypes.func.isRequired,
 };
 
-export default React.memo(Header);
+export default Header;

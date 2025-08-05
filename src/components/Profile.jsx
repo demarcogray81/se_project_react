@@ -16,20 +16,11 @@ export default function Profile({
   const user = useContext(CurrentUserContext);
   return (
     <div className="profile">
-      <aside className="profile__sidebar">
-        <img src={user.avatar} alt={user.name} className="profile__avatar" />
-        <h2 className="profile__name">{user.name}</h2>
-        <button onClick={onEditProfile} className="profile__btn">
-          Edit Profile
-        </button>
-        <button
-          onClick={onSignOut}
-          className="profile__btn profile__btn_signout"
-        >
-          Sign Out
-        </button>
-      </aside>
-
+      <SideBar
+        currentUser={user}
+        onEditProfile={onEditProfile}
+        onSignOut={onSignOut}
+      />
       <main className="profile__main">
         <div className="profile__header">
           <h3>Your Items</h3>

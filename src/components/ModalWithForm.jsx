@@ -13,22 +13,31 @@ function ModalWithForm({
   altActionLabel,
   altActionLinkText,
   onAltAction,
+  contentClassName = "",
+
+  submitClassName = "",
+
+  rootClassName = "",
 }) {
   return (
-    <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
-      <div className="modal__content modal__content_type_form modal__content-signup">
+    <div className={`modal ${isOpen ? "modal_opened" : ""} ${rootClassName}`}>
+      <div
+        className={`modal__content modal__content_type_form ${contentClassName}`}
+      >
         <h2 className="modal__title modal__text">{title}</h2>
         <button onClick={onClose} type="button" className="modal__close" />
         <form onSubmit={onSubmit} className="modal__form">
           {children}
 
-          <button
-            type="submit"
-            className="modal__save modal__text"
-            disabled={isSubmitDisabled}
-          >
-            {buttonText}
-          </button>
+          <div className="modal__actions">
+            <button
+              type="submit"
+              className={`modal__save ${submitClassName}`}
+              disabled={isSubmitDisabled}
+            >
+              {buttonText}
+            </button>
+          </div>
 
           {altActionLabel && altActionLinkText && (
             <p className="modal__alt-action">
@@ -61,6 +70,7 @@ ModalWithForm.propTypes = {
     linkText: PropTypes.string,
   }),
   onAltAction: PropTypes.func,
+  contentClassName: PropTypes.string,
 };
 
 export default ModalWithForm;

@@ -4,10 +4,11 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-left: 40px;
 }
 
 .page__content {
   max-width: 1360px;
   margin: 0 auto;
-  padding: 32px 40px 24px;
+  padding: 32px 40px 24px 0;
 }

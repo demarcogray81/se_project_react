@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import ModalWithForm from "./ModalWithForm";
+import "../styles/RegisterModal.css";
 
 export default function RegisterModal({
   isOpen,
   onClose,
   onRegister,
   onSwitchToLogin,
+  isLoading = false,
 }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -14,19 +16,11 @@ export default function RegisterModal({
     email: "",
     password: "",
   });
-  const [isValid, setIsValid] = useState(false);
 
-  useEffect(() => {
-    const { name, avatar, email, password } = formData;
-    setIsValid(
-      name.trim() && avatar.trim() && email.trim() && password.length >= 8
-    );
-  }, [formData]);
-
-  const handleChange = useCallback((e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((fd) => ({ ...fd, [name]: value }));
-  }, []);
+    setFormData((f) => ({ ...f, [name]: value }));
+  };
 
   const handleSubmit = useCallback(
     (e) => {
@@ -41,64 +35,79 @@ export default function RegisterModal({
   return (
     <ModalWithForm
       title="Sign Up"
-      buttonText="Sign Up"
+      buttonText={isLoading ? "Saving..." : "Sign Up"}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isSubmitDisabled={!isValid}
+      isSubmitDisabled={
+        !formData.email ||
+        !formData.password ||
+        !formData.name ||
+        !formData.avatar
+      }
       altActionLabel="or"
       altActionLinkText="Log In"
-      onAltAction={() => {
-        onClose();
-        onSwitchToRegister();
-      }}
+      onAltAction={onSwitchToLogin}
+      contentClassName="modal__content-signup"
     >
-      <p>Name*</p>
-      <input
-        name="name"
-        type="text"
-        placeholder="Name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-        minLength={2}
-        maxLength={30}
-        className="modal__input"
-      />
+      <label className="modal__label modal__text" htmlFor="email">
+        Email *
+        <input
+          placeholder="Email"
+          id="email"
+          name="email"
+          type="email"
+          className="modal__input"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+      </label>
 
-      <p>Avatar URL*</p>
-      <input
-        name="avatar"
-        type="url"
-        placeholder="Avatar URL"
-        value={formData.avatar}
-        onChange={handleChange}
-        required
-        className="modal__input"
-      />
+      <label className="modal__label modal__text" htmlFor="password">
+        Password *
+        <input
+          placeholder="Password"
+          id="password"
+          name="password"
+          type="password"
+          className="modal__input"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          minLength={8}
+        />
+      </label>
 
-      <p>Email*</p>
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-        className="modal__input"
-      />
+      <label className="modal__label modal__text" htmlFor="name">
+        Name *
+        <input
+          placeholder="Name"
+          id="name"
+          name="name"
+          type="text"
+          className="modal__input"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          minLength={2}
+          maxLength={30}
+        />
+      </label>
 
-      <p>Password*</p>
-      <input
-        name="password"
-        type="password"
-        placeholder="Password"
-        value={formData.password}
-        onChange={handleChange}
-        required
-        minLength={8}
-        className="modal__input"
-      />
+      <label className="modal__label modal__text" htmlFor="avatar">
+        Avatar URL *
+        <input
+          placeholder="Avatar URL"
+          id="avatar"
+          name="avatar"
+          type="url"
+          className="modal__input"
+          value={formData.avatar}
+          onChange={handleChange}
+          required
+        />
+      </label>
     </ModalWithForm>
   );
 }
@@ -108,4 +117,5 @@ RegisterModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onRegister: PropTypes.func.isRequired,
   onSwitchToLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 };

@@ -14,26 +14,29 @@ export default function Profile({
   clothingItems,
 }) {
   const user = useContext(CurrentUserContext);
+
   return (
-    <div className="profile">
-      <SideBar
-        currentUser={user}
-        onEditProfile={onEditProfile}
-        onSignOut={onSignOut}
-      />
-      <main className="profile__main">
-        <div className="profile__header">
-          <h3>Your Items</h3>
-          <button onClick={handleAddClick} className="profile__btn">
-            + Add New
-          </button>
+    <div className="page__content">
+      <div className="profile">
+        <div className="sidebar">
+          <SideBar
+            currentUser={user}
+            onEditProfile={onEditProfile}
+            onSignOut={onSignOut}
+          />
         </div>
-        <ClothesSection
-          onCardClick={onCardClick}
-          onCardLike={onCardLike}
-          clothingItems={clothingItems}
-        />
-      </main>
+
+        <main className="profile__main">
+          <div className="profile__header" />
+
+          <ClothesSection
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            clothingItems={clothingItems}
+            handleAddClick={handleAddClick}
+          />
+        </main>
+      </div>
     </div>
   );
 }

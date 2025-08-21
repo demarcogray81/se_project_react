@@ -1,14 +1,12 @@
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  inset: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   visibility: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 10000;
   font-family: "Cabinet Grotesk", Arial, sans-serif;
 }
 
@@ -16,180 +14,130 @@
   visibility: visible;
 }
 
-.modal__text {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 20px;
+.modal__content {
+  width: 496px;
+  max-width: 496px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
-.modal__title {
-  margin: 0 0 40px;
+.modal__content_type_form {
+  padding: 28px 28px 36px;
+  width: 496px;
+  height: 436px;
 }
 
 .modal__close {
   position: absolute;
   top: 20px;
   right: 28px;
-  cursor: pointer;
-  background-image: url(../../assets/cross.png);
-  background-color: transparent;
   width: 16px;
   height: 16px;
-  border: none;
+  background: transparent url("../assets/cross.png") center/contain no-repeat;
+  border: 0;
+  cursor: pointer;
+  z-index: 10002;
 }
 
-.modal__content {
-  background-color: white;
-  max-width: 496px;
-  width: 100%;
-  border-radius: 20px;
-  position: relative;
-  box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-}
-/* .modal__content-signup  */
-
-.modal__content_type_form {
-  padding: 28px 28px 32px;
-}
-
-.modal__content_type_image {
-  padding: 0;
-}
-
-.modal__image {
-  width: 498px;
-  height: 498px;
-  margin: 0;
-  display: block;
-}
-
-.modal__form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 16px;
-}
-
-.modal__footer {
-  margin-top: 20px;
-  padding: 0 32px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.modal__weather {
-  margin: 0;
+.modal__title {
+  margin: 0 0 24px;
   font-size: 20px;
-  font-weight: 700;
   line-height: 24px;
+  font-weight: 600;
+  color: #000;
 }
 
-.modal__save:hover {
-  opacity: 0.6;
-}
-
-.modal__save:disabled {
-  background-color: rgbargba(0, 0, 0, 0.3);
-  color: rgba(255, 255, 255, 1);
-  cursor: not-allowed;
-}
-
-.modal__input {
-  padding: 0;
+.modal__form input[type="text"],
+.modal__form input[type="url"] {
+  width: 100%;
+  padding: 8px 0;
+  margin: 0 0 24px;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
   font-size: 16px;
   line-height: 20px;
-  width: 100%;
-  display: block;
-  border: none;
-  margin-bottom: 24px;
-  border-bottom: 1px solid rgba(0, 0, 0, 1);
-  text-align: left;
 }
 
 .modal__legend {
-  margin-bottom: 12px;
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  color: #000;
+}
+
+.modal__radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal__radio-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 20px;
+  color: #000;
 }
 
 .modal__radio {
-  margin-bottom: 8px;
-}
-
-.modal__radio-btns {
-  display: flex;
-  flex-direction: column;
-  border: none;
-  padding: 0;
-}
-
-.modal__label_type_radio {
-  opacity: 0.5;
-}
-
-.modal__label_type_radio:has(input[type="radio"]:checked) {
-  opacity: 1;
-}
-
-.modal__save {
-  font-size: 16px;
-  padding: 8px 16px;
-  max-width: 124px;
-  margin-top: 32px;
-  display: flex;
-  height: 36px;
-  background-color: #000000;
-  color: white;
-  border-radius: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  display: inline-grid;
+  place-items: center;
   cursor: pointer;
-  transition: opacity 0.3s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  align-items: center;
-  justify-content: center;
+  position: relative;
 }
 
-.modal__content_type_form .modal__title {
-  margin: 0 0 24px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 24px;
-}
-
-.modal__title .modal__text {
-  font-size: 16px;
-  font-weight: 00;
-  line-height: 20px;
-  text-align: left;
-}
-
-.modal__form input {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #000;
-  margin-bottom: 24px;
-  padding: 8px 0;
-  font-family: "Cabinet Grotesk", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 20px;
+.modal__radio::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: transparent;
 }
 
+.modal__radio:checked::after {
+  background: #000;
+}
+
+.modal__radio:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal__label_text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
+}
+
 .modal__save {
-  max-width: 124px;
+  height: 36px;
+  padding: 8px 16px;
+  margin: 12px auto 0;
+  max-width: 128px;
   width: 100%;
-  padding: 12px 0;
-  margin: 0 auto;
+  background: #000;
+  color: #fff;
   font-size: 16px;
   font-weight: 700;
-  background-color: #000;
-  color: #fff;
   border-radius: 4px;
+  border: 0;
+  cursor: pointer;
   transition: opacity 0.2s ease;
 }
+
 .modal__save:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -198,50 +146,13 @@
   opacity: 0.6;
 }
 
-.modal__alt {
-  margin-top: 12px;
-  text-align: center;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.6);
+.item-card__header,
+.item-card__badge {
+  z-index: 1;
 }
 
-.modal__alt-label {
-  margin-right: 4px;
-}
-
-.modal__alt-link {
-  background: none;
-  border: none;
-  color: rgba(0, 0, 0, 1);
-  font-weight: 700;
-  cursor: pointer;
-}
-.modal__alt-action .modal__alt-link {
-  color: #000;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.modal__action-row {
-  display: flex;
-  align-items: center;
-  gap: 16px; /* space between the button and the “or” text */
-  margin-top: 32px; /* push it down a bit from the inputs */
-}
-
-.modal__alt-action {
-  margin: 0; /* reset default <p> margins */
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.modal__alt-link {
-  background: none;
+fieldset {
   border: none;
   padding: 0;
   margin: 0;
-  font-weight: 700;
-  color: rgba(0, 0, 0, 0.9);
-  cursor: pointer;
 }

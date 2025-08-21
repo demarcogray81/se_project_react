@@ -28,7 +28,7 @@ export default function Main({
         <ul className="cards__list">
           {clothingItems.map((item) => (
             <ItemCard
-              key={item._id}
+              key={item._id || item.id}
               item={item}
               onCardClick={onCardClick}
               onCardLike={onCardLike}

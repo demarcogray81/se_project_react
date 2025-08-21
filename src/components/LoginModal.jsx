@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import ModalWithForm from "./ModalWithForm";
 
@@ -7,21 +7,14 @@ export default function LoginModal({
   onClose,
   onLogin,
   onSwitchToRegister,
+  isLoading = false,
 }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [isValid, setIsValid] = useState(false);
 
-  // validate
-  useEffect(() => {
-    setIsValid(
-      formData.email.trim().length > 0 && formData.password.length >= 8
-    );
-  }, [formData]);
-
-  const handleChange = useCallback((e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((d) => ({ ...d, [name]: value }));
-  }, []);
+    setFormData((f) => ({ ...f, [name]: value }));
+  };
 
   const handleSubmit = useCallback(
     (e) => {
@@ -36,40 +29,42 @@ export default function LoginModal({
   return (
     <ModalWithForm
       title="Log In"
-      buttonText="Sign In"
+      buttonText={isLoading ? "Signing in..." : "Sign In"}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isSubmitDisabled={!isValid}
+      isSubmitDisabled={!formData.email || !formData.password || isLoading}
       altActionLabel="or"
       altActionLinkText="Sign Up"
-      onAltAction={() => {
-        onClose();
-        onSwitchToRegister();
-      }}
+      onAltAction={onSwitchToRegister}
+      contentClassName="modal__content-login modal__content-edit"
     >
-      <p>Email</p>
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-        className="modal__input"
-      />
+      <label className="modal__label modal__text" htmlFor="email">
+        Email
+        <input
+          id="email"
+          name="email"
+          type="email"
+          className="modal__input"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+      </label>
 
-      <p>Password</p>
-      <input
-        name="password"
-        type="password"
-        placeholder="Password"
-        value={formData.password}
-        onChange={handleChange}
-        required
-        minLength={8}
-        className="modal__input"
-      />
+      <label className="modal__label modal__text" htmlFor="password">
+        Password
+        <input
+          id="password"
+          name="password"
+          type="password"
+          className="modal__input"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          minLength={8}
+        />
+      </label>
     </ModalWithForm>
   );
 }
@@ -79,4 +74,5 @@ LoginModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
   onSwitchToRegister: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 };

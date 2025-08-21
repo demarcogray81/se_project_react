@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import { signin, signup, checkToken, getToken } from "../utils/auth";
 import { getWeather, filterWeatherData } from "../utils/weatherApi";
@@ -28,6 +28,7 @@ import EditProfileModal from "./EditProfileModal";
 import PrivateRoute from "./PrivateRoute";
 
 function App() {
+  const navigate = useNavigate();
   const [weatherData, setWeatherData] = useState({
     type: "",
     temp: { F: null, C: null },
@@ -35,22 +36,41 @@ function App() {
     condition: "",
     isDay: true,
   });
-
   const [clothingItems, setClothingItems] = useState([]);
-
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(Boolean(getToken()));
+  const [isAuthReady, setIsAuthReady] = useState(false);
+
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [isRegisterOpen, setRegisterOpen] = useState(false);
-
   const [isEditProfileOpen, setEditProfileOpen] = useState(false);
+
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const handleToggleSwitchChange = useCallback(() => {
-    setCurrentTemperatureUnit((u) => (u === "F" ? "C" : "F"));
-  }, []);
+
+  const [loadingAction, setLoadingAction] = useState(null);
+
+  const handleToggleSwitchChange = useCallback(
+    () => setCurrentTemperatureUnit((u) => (u === "F" ? "C" : "F")),
+    []
+  );
+
+  const handleSubmit = (actionKey, request, { closeOnSuccess = true } = {}) => {
+    setLoadingAction(actionKey);
+    return Promise.resolve()
+      .then(request)
+      .then((res) => {
+        if (closeOnSuccess) closeModal();
+        return res;
+      })
+      .catch((err) => {
+        console.error(err);
+        alert(err?.message || "Something went wrong");
+      })
+      .finally(() => setLoadingAction(null));
+  };
 
   const handleAddClick = () => {
     if (!isLoggedIn) {
@@ -65,19 +85,66 @@ function App() {
     setActiveModal("preview");
   }, []);
 
+  const handleAddSubmit = (data) => {
+    handleSubmit("add", () =>
+      addItem(data).then((item) => {
+        if (!item?._id) throw new Error("New item missing _id");
+
+        setClothingItems((prev) => [{ ...item, link: item.imageUrl }, ...prev]);
+      })
+    );
+  };
+
+  const handleDelete = (id) => {
+    handleSubmit("delete", () =>
+      deleteItem(id).then(() => {
+        setClothingItems((prev) => prev.filter((i) => i._id !== id));
+      })
+    );
+  };
+
+  const handleCardLike = async ({ _id: cardId, likes = [] }) => {
+    if (!currentUser) {
+      setLoginOpen(true);
+      return;
+    }
+    const isLiked = likes.includes(currentUser._id);
+    try {
+      const updated = isLiked
+        ? await removeCardLike(cardId)
+        : await addCardLike(cardId);
+
+      const updatedItem = updated?.data || updated;
+      if (!updatedItem?._id) return;
+
+      setClothingItems((items) =>
+        items.map((i) => (i._id === cardId ? updatedItem : i))
+      );
+    } catch (err) {
+      console.error(err);
+      alert(err?.message || "Unable to update like");
+    }
+  };
+
+  const afterLoginHydrate = async (token) => {
+    const user = await checkToken(token);
+    setCurrentUser(user);
+    setIsLoggedIn(true);
+
+    const items = await getItems();
+    setClothingItems(items.reverse());
+  };
+
   const handleLogin = async ({ email, password }) => {
     try {
       const token = await signin({ email, password });
       localStorage.setItem("jwt", token);
-      const user = await checkToken(token);
-      setCurrentUser(user);
-      setIsLoggedIn(true);
+      await afterLoginHydrate(token);
       setLoginOpen(false);
-      const items = await getItems();
-      setClothingItems(items.reverse());
+      navigate("/");
     } catch (err) {
       console.error("Login failed:", err);
-      alert(err.message);
+      alert(err?.message || "Login failed");
     }
   };
 
@@ -88,38 +155,16 @@ function App() {
       setRegisterOpen(false);
     } catch (err) {
       console.error(err);
-      alert(err.message);
-    }
-  };
-  const handleAddSubmit = async (data) => {
-    try {
-      const item = await addItem(data);
-      setClothingItems((prev) => [{ ...item, link: item.imageUrl }, ...prev]);
-      closeModal();
-    } catch (err) {
-      console.error(err);
+      alert(err?.message || "Signup failed");
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteItem(id);
-      setClothingItems((prev) => prev.filter((i) => i._id !== id));
-      closeModal();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleEditProfile = async ({ name, avatar }) => {
-    try {
-      const updated = await updateUser({ name, avatar });
-      setCurrentUser(updated);
-      setEditProfileOpen(false);
-    } catch (err) {
-      console.error("Profile update failed:", err);
-      alert(err.message);
-    }
+  const handleEditProfile = ({ name, avatar }) => {
+    handleSubmit("edit", () =>
+      updateUser({ name, avatar }).then((updated) => {
+        setCurrentUser(updated);
+      })
+    );
   };
 
   const handleSignOut = () => {
@@ -127,20 +172,7 @@ function App() {
     setIsLoggedIn(false);
     setCurrentUser(null);
     setClothingItems([]);
-  };
-
-  const handleCardLike = async ({ _id: cardId, likes }) => {
-    const isLiked = likes.includes(currentUser._id);
-    try {
-      const updated = isLiked
-        ? await removeCardLike(cardId)
-        : await addCardLike(cardId);
-      setClothingItems((items) =>
-        items.map((i) => (i._id === cardId ? updated : i))
-      );
-    } catch (err) {
-      console.error(err);
-    }
+    navigate("/");
   };
 
   const closeModal = () => {
@@ -149,25 +181,35 @@ function App() {
   };
 
   useEffect(() => {
+    if (!activeModal) return;
+    const onEsc = (e) => e.key === "Escape" && closeModal();
+    document.addEventListener("keydown", onEsc);
+    return () => document.removeEventListener("keydown", onEsc);
+  }, [activeModal]);
+
+  useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => setWeatherData(filterWeatherData(data)))
       .catch(console.error);
 
     const token = getToken();
-    if (token) {
-      checkToken(token)
-        .then((user) => {
-          setCurrentUser(user);
-          setIsLoggedIn(true);
-          return getItems();
-        })
-        .then((items) => setClothingItems(items.reverse()))
-        .catch(() => localStorage.removeItem("jwt"));
-    } else {
-      getItems()
-        .then((items) => setClothingItems(items.reverse()))
-        .catch(console.error);
-    }
+
+    (async () => {
+      try {
+        if (token) {
+          await afterLoginHydrate(token);
+        } else {
+          setClothingItems([]);
+        }
+      } catch (err) {
+        localStorage.removeItem("jwt");
+        setIsLoggedIn(false);
+        setCurrentUser(null);
+        setClothingItems([]);
+      } finally {
+        setIsAuthReady(true);
+      }
+    })();
   }, []);
 
   return (
@@ -197,6 +239,7 @@ function App() {
           isOpen={isEditProfileOpen}
           onClose={() => setEditProfileOpen(false)}
           onUpdate={handleEditProfile}
+          isLoading={loadingAction === "edit"}
         />
 
         <div className="page">
@@ -224,7 +267,10 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <PrivateRoute isLoggedIn={isLoggedIn}>
+                  <PrivateRoute
+                    isLoggedIn={isLoggedIn}
+                    isAuthReady={isAuthReady}
+                  >
                     <Profile
                       onCardClick={handleCardClick}
                       onCardLike={handleCardLike}
@@ -237,6 +283,7 @@ function App() {
                 }
               />
             </Routes>
+
             <Footer />
           </div>
 
@@ -244,12 +291,15 @@ function App() {
             isOpen={activeModal === "add-garment"}
             onClose={closeModal}
             onAddItemModalSubmit={handleAddSubmit}
+            isLoading={loadingAction === "add"}
           />
+
           <ItemModal
             isOpen={activeModal === "preview"}
             card={selectedCard}
             onClose={closeModal}
             onDelete={handleDelete}
+            isLoading={loadingAction === "delete"}
           />
         </div>
       </CurrentTemperatureUnitContext.Provider>

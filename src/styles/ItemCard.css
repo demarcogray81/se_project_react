@@ -1,29 +1,129 @@
-.card {
-  width: 323px;
+.item-card {
+  width: 328px;
   height: 328px;
   position: relative;
-  display: flex;
-  justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
+  border-radius: 16px;
   overflow: hidden;
+  background: #fff;
+  z-index: 0;
 }
 
-.card__name {
+.item-card__image-wrap {
+  position: relative;
+  flex: 0 0 325px;
+  height: 328px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.item-card__image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: fill;
+}
+
+.item-card__badge {
   position: absolute;
-  top: 15px;
-  margin: 0;
-  font-weight: 700;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  background: #fff;
+  border-radius: 9999px;
+  max-width: calc(100% - 24px);
+  z-index: 1;
+}
+
+.item-card__header {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+  justify-content: center;
+}
+
+.item-card__title-pill {
+  padding: 2px 12px;
   font-size: 16px;
   line-height: 20px;
-  letter-spacing: 0;
-  padding: 2px 12px;
-  background-color: #ffffff;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+  background: #fff;
   border-radius: 4px;
-  color: rgb(0, 0, 0, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  max-width: calc(100% - 40px);
 }
 
-.card__image {
-  width: 100%;
-  border-radius: 1px;
+.item-card__like {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.item-card__like-icon {
+  width: 20px;
+  height: 20px;
+  background-image: url("../assets/Unliked_Heart.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.item-card__like.item-card__like_active .item-card__like-icon {
+  background-image: url("../assets/Liked_Heart.svg");
+}
+
+.item-card__badge-like {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.item-card__badge-like:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.item-card__badge-like:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.6);
+  outline-offset: 2px;
+}
+
+.item-card__badge-like-icon {
+  width: 20px;
+  height: 20px;
+  background-image: url("../assets/Unliked_Heart.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.item-card__badge-like.is-active .item-card__badge-like-icon {
+  background-image: url("../assets/Liked_Heart.svg");
 }

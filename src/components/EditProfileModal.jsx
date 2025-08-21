@@ -41,31 +41,43 @@ export default function EditProfileModal({ isOpen, onClose, onUpdate }) {
 
   return (
     <ModalWithForm
-      title="Edit profile"
-      buttonText="Save"
+      title="Change profile data"
+      buttonText="Save changes"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
       isSubmitDisabled={!isValid}
+      contentClassName="modal__content-edit"
     >
-      <input
-        name="name"
-        type="text"
-        placeholder="Name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-        minLength={2}
-        maxLength={30}
-      />
-      <input
-        name="avatar"
-        type="url"
-        placeholder="Avatar URL"
-        value={formData.avatar}
-        onChange={handleChange}
-        required
-      />
+      <label htmlFor="name" className="modal__label modal__text">
+        Name *
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          minLength={2}
+          maxLength={30}
+          className="modal__input"
+        />
+      </label>
+
+      <label htmlFor="avatar" className="modal__label modal__text">
+        Avatar *
+        <input
+          id="avatar"
+          name="avatar"
+          type="url"
+          placeholder="Avatar URL"
+          value={formData.avatar}
+          onChange={handleChange}
+          required
+          className="modal__input"
+        />
+      </label>
     </ModalWithForm>
   );
 }

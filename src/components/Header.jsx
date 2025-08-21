@@ -26,13 +26,15 @@ function Header({ handleAddClick, weatherData, onSignInClick, onSignUpClick }) {
 
       <ToggleSwitch />
 
-      <button
-        onClick={handleAddClick}
-        className="header__add-clothes-btn"
-        type="button"
-      >
-        + Add Clothes
-      </button>
+      {currentUser && (
+        <button
+          onClick={handleAddClick}
+          className="header__add-clothes-btn"
+          type="button"
+        >
+          + Add Clothes
+        </button>
+      )}
 
       {!currentUser ? (
         <div className="header__auth-buttons">

@@ -1,27 +1,35 @@
-.modal__content_type_form {
-  padding: 20px;
-  width: 300px;
+.modal__content-edit {
+  max-width: 496px;
+  height: 304px !important;
+  padding: 28px 28px 0;
 }
 
-.modal__form {
+.modal__content-edit .modal__save {
+  background: #000;
+  color: #fff;
+  width: 128px;
+  position: absolute;
+}
+
+.modal__content-edit .modal__form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.modal__label {
+.modal__content-edit .modal__label {
   display: flex;
   flex-direction: column;
   font-weight: bold;
 }
 
-.modal__input {
+.modal__content-edit .modal__input {
   padding: 8px;
   font-size: 14px;
   margin-top: 5px;
 }
 
-.modal__submit {
+.modal__content-edit .modal__submit {
   background-color: #000;
   color: #fff;
   padding: 10px;

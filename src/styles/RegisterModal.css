@@ -1,0 +1,71 @@
+.modal__label {
+  display: block;
+}
+
+.modal__input {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 6px;
+  margin-bottom: 24px;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  font: 16px/20px "Cabinet Grotesk", Arial, sans-serif;
+}
+
+.modal__content_type_form {
+  padding: 28px 28px 36px;
+  width: 496px;
+
+  border-radius: 20px;
+}
+
+.modal__content.modal__content_type_form.modal__content-login {
+  height: 304px;
+}
+.modal__content.modal__content_type_form.modal__content-signup {
+  height: 456px;
+}
+.modal__actions {
+  width: 170px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.modal__save {
+  height: 36px;
+  width: 86px;
+  padding: 8px 16px;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal__save:disabled {
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.modal__alt-action {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__alt-link {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  cursor: pointer;
+}

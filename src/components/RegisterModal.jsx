@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useId } from "react";
 import PropTypes from "prop-types";
 import ModalWithForm from "./ModalWithForm";
 import "../styles/RegisterModal.css";
@@ -10,6 +10,12 @@ export default function RegisterModal({
   onSwitchToLogin,
   isLoading = false,
 }) {
+  const uid = useId();
+  const emailId = `${uid}-email`;
+  const passId = `${uid}-password`;
+  const nameId = `${uid}-name`;
+  const avatarId = `${uid}-avatar`;
+
   const [formData, setFormData] = useState({
     name: "",
     avatar: "",
@@ -50,28 +56,28 @@ export default function RegisterModal({
       onAltAction={onSwitchToLogin}
       contentClassName="modal__content-signup"
     >
-      <label className="modal__label modal__text" htmlFor="email">
+      <label className="modal__label modal__text" htmlFor={emailId}>
         Email *
         <input
-          placeholder="Email"
-          id="email"
+          id={emailId}
           name="email"
           type="email"
           className="modal__input"
+          placeholder="Email"
           value={formData.email}
           onChange={handleChange}
           required
         />
       </label>
 
-      <label className="modal__label modal__text" htmlFor="password">
+      <label className="modal__label modal__text" htmlFor={passId}>
         Password *
         <input
-          placeholder="Password"
-          id="password"
+          id={passId}
           name="password"
           type="password"
           className="modal__input"
+          placeholder="Password"
           value={formData.password}
           onChange={handleChange}
           required
@@ -79,14 +85,14 @@ export default function RegisterModal({
         />
       </label>
 
-      <label className="modal__label modal__text" htmlFor="name">
+      <label className="modal__label modal__text" htmlFor={nameId}>
         Name *
         <input
-          placeholder="Name"
-          id="name"
+          id={nameId}
           name="name"
           type="text"
           className="modal__input"
+          placeholder="Name"
           value={formData.name}
           onChange={handleChange}
           required
@@ -95,14 +101,14 @@ export default function RegisterModal({
         />
       </label>
 
-      <label className="modal__label modal__text" htmlFor="avatar">
+      <label className="modal__label modal__text" htmlFor={avatarId}>
         Avatar URL *
         <input
-          placeholder="Avatar URL"
-          id="avatar"
+          id={avatarId}
           name="avatar"
           type="url"
           className="modal__input"
+          placeholder="Avatar URL"
           value={formData.avatar}
           onChange={handleChange}
           required

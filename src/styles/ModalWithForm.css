@@ -122,6 +122,35 @@
   color: #000;
 }
 
+.modal__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.modal__alt-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__alt-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #000;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.modal__alt-link:hover {
+  text-decoration: underline;
+}
+
 .modal__save {
   height: 36px;
   padding: 8px 16px;
@@ -141,6 +170,7 @@
 .modal__save:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  margin: 0;
 }
 .modal__save:hover:enabled {
   opacity: 0.6;

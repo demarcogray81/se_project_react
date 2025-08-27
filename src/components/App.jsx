@@ -160,10 +160,20 @@ function App() {
   };
 
   const handleEditProfile = ({ name, avatar }) => {
-    handleSubmit("edit", () =>
+    handleSubmit(() =>
       updateUser({ name, avatar }).then((updated) => {
         setCurrentUser(updated);
+        setEditProfileOpen(false);
       })
+    );
+    handleSubmit(
+      "edit",
+      () =>
+        updateUser({ name, avatar }).then((updated) => {
+          setCurrentUser(updated);
+          setEditProfileOpen(false);
+        }),
+      { closeOnSuccess: false }
     );
   };
 

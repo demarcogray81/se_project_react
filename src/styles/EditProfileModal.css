@@ -9,6 +9,7 @@
   color: #fff;
   width: 128px;
   position: absolute;
+  margin: 0;
 }
 
 .modal__content-edit .modal__form {

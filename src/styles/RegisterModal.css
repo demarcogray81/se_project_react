@@ -15,7 +15,7 @@
 }
 
 .modal__content_type_form {
-  padding: 28px 28px 36px;
+  padding: 28px 28px 0;
   width: 496px;
 
   border-radius: 20px;

@@ -32,25 +32,25 @@ function ModalWithForm({
           <div className="modal__actions">
             <button
               type="submit"
-              className={`modal__save ${submitClassName}`}
+              className="modal__save modal__text"
               disabled={isSubmitDisabled}
             >
               {buttonText}
             </button>
-          </div>
 
-          {altActionLabel && altActionLinkText && (
-            <p className="modal__alt-action">
-              {altActionLabel}{" "}
-              <button
-                type="button"
-                className="modal__alt-link"
-                onClick={onAltAction}
-              >
-                {altActionLinkText}
-              </button>
-            </p>
-          )}
+            {altActionLabel && altActionLinkText && (
+              <p className="modal__alt-action">
+                <span className="modal__alt-label">{altActionLabel}</span>
+                <button
+                  type="button"
+                  className="modal__alt-link"
+                  onClick={onAltAction}
+                >
+                  {altActionLinkText}
+                </button>
+              </p>
+            )}
+          </div>
         </form>
       </div>
     </div>

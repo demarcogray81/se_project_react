@@ -33,11 +33,11 @@ export default function LoginModal({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isSubmitDisabled={!formData.email || !formData.password || isLoading}
+      isSubmitDisabled={!formData.email || !formData.password}
       altActionLabel="or"
       altActionLinkText="Sign Up"
       onAltAction={onSwitchToRegister}
-      contentClassName="modal__content-login modal__content-edit"
+      contentClassName="modal__content-login"
     >
       <label className="modal__label modal__text" htmlFor="email">
         Email

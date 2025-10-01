@@ -1,6 +1,9 @@
 import { checkResponse } from "./api";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wattawear.twilightparadox.com"
+    : "http://localhost:3001";
 
 export function getToken() {
   return localStorage.getItem("jwt");

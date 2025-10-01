@@ -1,4 +1,7 @@
-const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wattawear.twilightparadox.com"
+    : "http://localhost:3001";
 
 function getAuthHeaders() {
   const token = localStorage.getItem("jwt");

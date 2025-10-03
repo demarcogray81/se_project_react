@@ -1,13 +1,7 @@
-// utils/auth.js
-
 import { checkResponse } from "./api";
-import { API_BASE_URL } from "./constants";
+import { API_BASE_URL } from "../constants";
 
-const baseUrl =
-  (import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL.trim()) ||
-  (import.meta.env.PROD
-    ? "https://api.wattawear.twilightparadox.com"
-    : "http://localhost:3001");
+const BASE_URL = API_BASE_URL;
 
 export function getToken() {
   return localStorage.getItem("jwt");
@@ -33,8 +27,6 @@ export function signin({ email, password }) {
 
 export function checkToken(token) {
   return fetch(`${BASE_URL}/users/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
   }).then(checkResponse);
 }

@@ -1,82 +1,32 @@
-const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://api.wattawear.twilightparadox.com"
-    : "http://localhost:3001";
+import { checkResponse } from "./api";
+import { API_BASE_URL } from "../constants";
 
-function getAuthHeaders() {
-  const token = localStorage.getItem("jwt");
-  return token ? { Authorization: `Bearer ${token}` } : {};
+const BASE_URL = API_BASE_URL;
+
+export function getToken() {
+  return localStorage.getItem("jwt");
 }
 
-export function checkResponse(res) {
-  if (res.ok) return res.json();
-  return res
-    .json()
-    .catch(() => null)
-    .then((body) => {
-      const msg = body?.message || `Error: ${res.status}`;
-      return Promise.reject(new Error(msg));
-    });
-}
-
-function request(url, options = {}) {
-  return fetch(url, options).then(checkResponse);
-}
-
-export function getItems() {
-  return request(`${baseUrl}/items`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-  });
-}
-
-export function addItem(data) {
-  return request(`${baseUrl}/items`, {
+export function signup({ name, avatar, email, password }) {
+  return fetch(`${BASE_URL}/signup`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-    body: JSON.stringify(data),
-  });
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, avatar, email, password }),
+  }).then(checkResponse);
 }
 
-export function deleteItem(id) {
-  return request(`${baseUrl}/items/${id}`, {
-    method: "DELETE",
-    headers: {
-      ...getAuthHeaders(),
-    },
-  });
+export function signin({ email, password }) {
+  return fetch(`${BASE_URL}/signin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  })
+    .then(checkResponse)
+    .then((data) => data.token);
 }
 
-export function updateUser(data) {
-  return request(`${baseUrl}/users/me`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-    body: JSON.stringify(data),
-  });
-}
-
-export function addCardLike(cardId) {
-  return request(`${baseUrl}/items/${cardId}/likes`, {
-    method: "PUT",
-    headers: {
-      ...getAuthHeaders(),
-    },
-  }).then((res) => res.data ?? res);
-}
-
-export function removeCardLike(cardId) {
-  return request(`${baseUrl}/items/${cardId}/likes`, {
-    method: "DELETE",
-    headers: {
-      ...getAuthHeaders(),
-    },
-  }).then((res) => res.data ?? res);
+export function checkToken(token) {
+  return fetch(`${BASE_URL}/users/me`, {
+    headers: { Authorization: `Bearer ${token}` },
+  }).then(checkResponse);
 }
